@@ -2,8 +2,8 @@
 
 It may happen that you're tired of being scared to restart your browser
 because you music will stop playing. And maybe you want your multimedia
-keys to be supported. Perlotto solves former point for you and will solve
-the latter sometime in the future.
+keys to be supported. Perlotto solves both points and doesn't do anything
+else.
 
 ## Development
 
