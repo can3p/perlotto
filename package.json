@@ -1,6 +1,6 @@
 {
     "name": "Perlotto",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Minimal google music player",
     "main": "main.js",
     "scripts": {
