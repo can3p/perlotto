@@ -15,6 +15,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file: dist/mac/Perlotto-*.dmg
+  api_key: $GH_TOKEN
   on:
     tags: true
     repo: can3p/perlotto
