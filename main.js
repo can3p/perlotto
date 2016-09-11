@@ -3,6 +3,7 @@ const {app, globalShortcut, BrowserWindow} = require('electron')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let forceQuiteApp;
 
 function createWindow () {
     // Create the browser window.
@@ -12,8 +13,12 @@ function createWindow () {
     // and load the index.html of the app.
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    // Open the DevTools.
-    //mainWindow.webContents.openDevTools()
+    mainWindow.on('close', function(e){
+        if (!forceQuiteApp) {
+            e.preventDefault();
+            mainWindow.hide();
+        }
+    });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -40,6 +45,7 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
+app.on('before-quit', () => forceQuiteApp = true);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -55,8 +61,11 @@ app.on('activate', function () {
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
         createWindow()
+    } else {
+        mainWindow.show();
     }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+app.on('activate-with-no-open-windows', function(){
+    mainWindow && mainWindow.show();
+});
