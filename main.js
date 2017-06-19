@@ -1,4 +1,4 @@
-const {app, globalShortcut, BrowserWindow} = require('electron')
+const {app, globalShortcut, BrowserWindow, ipcMain} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -39,6 +39,10 @@ function createWindow () {
     globalShortcut.register('MediaNextTrack', function(){
         mainWindow.webContents.send('play-control', 'forward');
     }) || console.log('MediaNextTrack binding failed');
+
+    ipcMain.on('player-song-change', function(e, arg) {
+        //console.log("song change", arg);
+    });
 }
 
 // This method will be called when Electron has finished
