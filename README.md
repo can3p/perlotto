@@ -9,7 +9,7 @@ else.
 
 ```bash
 $ npm install
-$ npm stat
+$ npm start
 ```
 
 ## Packaging
