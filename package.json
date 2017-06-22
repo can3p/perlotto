@@ -1,6 +1,6 @@
 {
   "name": "Perlotto",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Minimal google music player",
   "main": "main.js",
   "scripts": {
@@ -25,10 +25,12 @@
     "url": "https://github.com/can3p/perlotto/issues"
   },
   "homepage": "https://github.com/can3p/perlotto#readme",
-  "devDependencies": {
-    "electron": "^1.6.11",
-    "electron-builder": "^6.6.1",
+  "dependencies": {
     "electron-settings": "^3.1.1",
     "lastfmapi": "^0.1.1"
+  },
+  "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-builder": "^6.6.1"
   }
 }
