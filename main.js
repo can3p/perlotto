@@ -1,4 +1,5 @@
-const {app, globalShortcut, BrowserWindow, ipcMain} = require('electron')
+const {app, globalShortcut, BrowserWindow, ipcMain, Menu, MenuItem} = require('electron')
+const lastfm = require('./lastfm');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -41,8 +42,40 @@ function createWindow () {
     }) || console.log('MediaNextTrack binding failed');
 
     ipcMain.on('player-song-change', function(e, arg) {
-        //console.log("song change", arg);
+        lastfm.nowPlaying(arg);
     });
+
+    ipcMain.on('player-scrobble-time', function(e, arg) {
+        lastfm.scrobble(arg);
+    });
+
+    lastfm.init();
+    updateMenu();
+}
+
+function getMenuTemplate(lastFMEnabled) {
+    var template = [
+        {
+            label: app.getName(),
+            submenu: [
+                {role: 'toggledevtools'},
+                {type: 'separator'},
+                (lastFMEnabled ?
+                    {label: 'Disconnect from Last.FM', click: function() { lastfm.disconnect(updateMenu) } }
+                  : {label: 'Connect to Last.FM', click: function() { lastfm.authorize(updateMenu); } }),
+                {type: 'separator'},
+                {role: 'quit'}
+            ]
+        }
+    ];
+
+    return template;
+}
+
+function updateMenu() {
+    var lastFMEnabled = lastfm.isAuthorized();
+    var menu = Menu.buildFromTemplate(getMenuTemplate(lastFMEnabled));
+    Menu.setApplicationMenu(menu);
 }
 
 // This method will be called when Electron has finished

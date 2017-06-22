@@ -2,6 +2,16 @@
 
     const {ipcRenderer} = require('electron');
     var currentTrack = {};
+    var updateTimer;
+
+    function scheduleScobbleUpdate(info) {
+        clearTimeout(updateTimer);
+
+        info.timestamp = Math.floor((+new Date()) / 1000);
+        updateTimer = setTimeout(function() {
+            ipcRenderer.send('player-scrobble-time', info)
+        }, 61000); // a bit bigger then minimal limit
+    }
 
     function runWhenLoaded(func) {
         if (playerLoadedp()) {
@@ -63,6 +73,7 @@
 
         if (!tracksEqualp(currentTrack, info)) {
             currentTrack = info;
+            scheduleScobbleUpdate(info);
             ipcRenderer.send('player-song-change', info)
         }
     }

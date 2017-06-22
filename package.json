@@ -1,32 +1,34 @@
 {
-    "name": "Perlotto",
-    "version": "0.2.0",
-    "description": "Minimal google music player",
-    "main": "main.js",
-    "scripts": {
-        "start": "electron .",
-        "pack": "build --dir",
-        "dist": "build"
-    },
-    "build": {
-        "appId": "com.can3p.perlotto",
-        "productName": "Perlotto",
-        "mac": {
-            "category": "public.app-category.music"
-        }
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/can3p/perlotto.git"
-    },
-    "author": "Dmitry Petrov",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/can3p/perlotto/issues"
-    },
-    "homepage": "https://github.com/can3p/perlotto#readme",
-    "devDependencies": {
-        "electron-builder": "^6.6.1",
-        "electron-prebuilt": "^1.3.5"
+  "name": "Perlotto",
+  "version": "0.2.0",
+  "description": "Minimal google music player",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "com.can3p.perlotto",
+    "productName": "Perlotto",
+    "mac": {
+      "category": "public.app-category.music"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/can3p/perlotto.git"
+  },
+  "author": "Dmitry Petrov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/can3p/perlotto/issues"
+  },
+  "homepage": "https://github.com/can3p/perlotto#readme",
+  "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-builder": "^6.6.1",
+    "electron-settings": "^3.1.1",
+    "lastfmapi": "^0.1.1"
+  }
 }
