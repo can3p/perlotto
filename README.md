@@ -1,9 +1,14 @@
 # Perlotto - minimal google music wrapper
 
-It may happen that you're tired of being scared to restart your browser
-because you music will stop playing. And maybe you want your multimedia
-keys to be supported. Perlotto solves both points and doesn't do anything
-else.
+Perlotto is a minimal wrapper around Google Music service that turns it
+in a decent player but does not add tons of crap on top. So, what's
+inside?
+
+* Multimedia keys
+* Last.FM scrobbling
+* No notifications
+
+That's it.
 
 ## Development
 
