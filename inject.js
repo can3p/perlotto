@@ -4,7 +4,7 @@
     var currentTrack = {};
     var updateTimer;
 
-    function scheduleScobbleUpdate(info) {
+    function scheduleScrobbleUpdate(info) {
         clearTimeout(updateTimer);
 
         info.timestamp = Math.floor((+new Date()) / 1000);
@@ -73,7 +73,7 @@
 
         if (!tracksEqualp(currentTrack, info)) {
             currentTrack = info;
-            scheduleScobbleUpdate(info);
+            scheduleScrobbleUpdate(info);
             ipcRenderer.send('player-song-change', info)
         }
     }
