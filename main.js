@@ -62,6 +62,9 @@ function getMenuTemplate(lastFMEnabled) {
         {
             label: app.getName(),
             submenu: [
+                {label: 'Reload player', click: function() {
+                    reloadPlayer(updateMenu);
+                }},
                 {role: 'toggledevtools'},
                 {type: 'separator'},
                 (lastFMEnabled ?
@@ -74,6 +77,11 @@ function getMenuTemplate(lastFMEnabled) {
     ];
 
     return template;
+}
+
+function reloadPlayer(cb) {
+    mainWindow.reload();
+    cb();
 }
 
 function updateMenu() {
