@@ -60,7 +60,9 @@ exports.init = function() {
 exports.nowPlaying = function(track) {
     if (!exports.isAuthorized()) return;
 
-    lfm.track.updateNowPlaying(track) // we don't care about response
+    lfm.track.updateNowPlaying(track, function(...args) {
+        console.log("last.fm updateNowPlaying response:", args);
+    }) // we don't care about response
 }
 
 exports.scrobble = function(track) {
