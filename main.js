@@ -1,10 +1,32 @@
-const {app, globalShortcut, BrowserWindow, ipcMain, Menu, MenuItem} = require('electron')
+const {app, globalShortcut, BrowserWindow, ipcMain, Menu, MenuItem, session} = require('electron')
 const lastfm = require('./lastfm');
+
+const filter = {};
+// we need filters because it's supper annoying to listen ads after every second song. Thanks
+var ad_filters = [
+    /https:\/\/.*\.youtube\.com\/ad.*/,
+    /.*.doubleclick.net\/.*/,
+    /.*\/pagead\/lvz?.*/,
+    /.*-pagead-id\..*/,
+    /.*log_event.*/,
+    /.*log_interaction.*/,
+    /.*adServer.*/,
+    /.*cumulus-cloud.*/,
+    /.*youtube.com\/ptracking\?.*/,
+    /.*pagead.*/,
+    /.*adunit.*/,
+    /.*googlesyndication.*/,
+    /.*api\/ads.*/,
+    /.*api\/stats\/ads.*/,
+    /.*s\.youtube.com\/.*/,
+    /.*(googlevideo|youtube).com\/.*_204.*/,
+];
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let forceQuiteApp;
+let playerName = 'gmusic';
 
 function createWindow () {
     // Create the browser window.
@@ -16,7 +38,7 @@ function createWindow () {
     mainWindow.maximize();
 
     // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/players/' + playerName + '/index.html');
 
     mainWindow.on('close', function(e){
         if (!forceQuiteApp) {
@@ -46,15 +68,30 @@ function createWindow () {
     }) || console.log('MediaNextTrack binding failed');
 
     ipcMain.on('player-song-change', function(e, arg) {
+        // console.log('player-song-change', arg);
         lastfm.nowPlaying(arg);
     });
 
     ipcMain.on('player-scrobble-time', function(e, arg) {
+        // console.log('player-scrobble-time', arg);
         lastfm.scrobble(arg);
     });
 
     lastfm.init();
     updateMenu();
+    initFilters();
+}
+
+function checkFilters(url) {
+    return ad_filters.reduce(function(acc, filter) {
+        return acc || !!filter.exec(url);
+    }, false);
+}
+
+function initFilters() {
+    session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+        callback({cancel: checkFilters(details.url)});
+    })
 }
 
 function getMenuTemplate(lastFMEnabled) {
@@ -73,11 +110,31 @@ function getMenuTemplate(lastFMEnabled) {
                 {type: 'separator'},
                 {role: 'quit'}
             ]
+        },
+        {
+            label: "Switch Player",
+            submenu: [
+                playerName === 'gmusic' ?
+                {label: 'Youtube', click: function() {
+                    switchPlayer('youtube', updateMenu);
+                }}
+                :
+                {label: 'Google Music', click: function() {
+                    switchPlayer('gmusic', updateMenu);
+                }}
+            ]
         }
     ];
 
     return template;
 }
+
+function switchPlayer(name, cb) {
+    playerName = name;
+    mainWindow.loadURL('file://' + __dirname + '/players/' + playerName + '/index.html');
+    cb();
+}
+
 
 function reloadPlayer(cb) {
     mainWindow.reload();
