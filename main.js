@@ -94,6 +94,27 @@ function initFilters() {
     })
 }
 
+function getPlayersTemplate(currentPlayer) {
+    var genSwitchPlayer = function(player) {
+        return switchPlayer.bind(null, player, updateMenu);
+    };
+    
+    var players = [
+        {
+            label: 'Youtube',
+            name:  'youtube',
+            click: genSwitchPlayer('youtube')
+        },
+        {
+            label: 'Google Music',
+            name: 'gmusic',
+            click: genSwitchPlayer('gmusic')
+        }];
+
+    return players.filter((item) => item.name !== currentPlayer);
+}
+
+
 function getMenuTemplate(lastFMEnabled) {
     var template = [
         {
@@ -113,16 +134,7 @@ function getMenuTemplate(lastFMEnabled) {
         },
         {
             label: "Switch Player",
-            submenu: [
-                playerName === 'gmusic' ?
-                {label: 'Youtube', click: function() {
-                    switchPlayer('youtube', updateMenu);
-                }}
-                :
-                {label: 'Google Music', click: function() {
-                    switchPlayer('gmusic', updateMenu);
-                }}
-            ]
+            submenu: getPlayersTemplate(playerName)
         }
     ];
 
@@ -134,7 +146,6 @@ function switchPlayer(name, cb) {
     mainWindow.loadURL('file://' + __dirname + '/players/' + playerName + '/index.html');
     cb();
 }
-
 
 function reloadPlayer(cb) {
     mainWindow.reload();
