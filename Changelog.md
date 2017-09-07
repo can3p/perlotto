@@ -1,5 +1,7 @@
 # Changelog
 
+* 2017-09-07 Enable system edit shortcuts
+
 ## 0.4.0
 
 * 2017-09-07 Minimal youtube player support

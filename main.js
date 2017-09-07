@@ -123,13 +123,54 @@ function getMenuTemplate(lastFMEnabled) {
                 {label: 'Reload player', click: function() {
                     reloadPlayer(updateMenu);
                 }},
-                {role: 'toggledevtools'},
+                {
+                    role: 'toggledevtools',
+                    accelerator: 'Alt+CmdOrCtrl+I'
+                },
                 {type: 'separator'},
                 (lastFMEnabled ?
                     {label: 'Disconnect from Last.FM', click: function() { lastfm.disconnect(updateMenu) } }
                   : {label: 'Connect to Last.FM', click: function() { lastfm.authorize(updateMenu); } }),
                 {type: 'separator'},
                 {role: 'quit'}
+            ]
+        },
+        {
+            label: 'Edit',
+            submenu: [
+                {
+                    label: 'Undo',
+                    accelerator: 'CmdOrCtrl+Z',
+                    selector: 'undo:'
+                },
+                {
+                    label: 'Redo',
+                    accelerator: 'Shift+CmdOrCtrl+Z',
+                    selector: 'redo:'
+                },
+                {
+                    type: 'separator'
+                },
+                {
+                    label: 'Cut',
+                    accelerator: 'CmdOrCtrl+X',
+                    selector: 'cut:'
+                },
+                {
+                    label: 'Copy',
+                    accelerator: 'CmdOrCtrl+C',
+                    selector: 'copy:'
+                },
+                {
+                    label: 'Paste',
+                    accelerator: 'CmdOrCtrl+V',
+                    selector: 'paste:'
+                },
+                {
+                    label: 'Select All',
+                    accelerator: 'CmdOrCtrl+A',
+                    selector: 'selectAll:'
+                },
             ]
         },
         {
