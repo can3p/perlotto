@@ -50,6 +50,9 @@ full integration:
   note that this information is only required for last.fm stuff
   but who knows if we need it for something else, right?
 
+* And of course you need to be able to make your service work
+  inside Perlotto app.
+
 ## Packaging
 
 ```bash
