@@ -85,6 +85,7 @@ exports.authorize = function(cb) {
         width: 600,
         height: 600,
     })
+    lfmWindow.setMenu(null);
 
     exports.startServer(function(token) {
         exports.stopServer();
