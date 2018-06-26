@@ -15,6 +15,7 @@ exports.api = lfm;
 
 var server;
 var lfmWindow;
+var mainWindow;
 
 var port = 4567;
 var host = 'http://127.0.0.1';
@@ -47,7 +48,8 @@ exports.stopServer = function() {
     server = null;
 };
 
-exports.init = function() {
+exports.init = function(mainWnd) {
+    mainWindow = mainWnd;
     sessionData = settings.get('lastfm');
 
     if (sessionData) {
@@ -84,6 +86,8 @@ exports.authorize = function(cb) {
     lfmWindow = new BrowserWindow({
         width: 600,
         height: 600,
+        parent: mainWindow,
+        modal: true,
     })
     lfmWindow.setMenu(null);
 
