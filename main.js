@@ -77,7 +77,7 @@ function createWindow () {
         lastfm.scrobble(arg);
     });
 
-    lastfm.init();
+    lastfm.init(mainWindow);
     updateMenu();
     initFilters();
 }
