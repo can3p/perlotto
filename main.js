@@ -33,7 +33,8 @@ function createWindow () {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        title: "Perlotto"
+        title: "Perlotto",
+        icon: __dirname + '/build/icon.png'
     });
     mainWindow.maximize();
 
