@@ -110,7 +110,13 @@ function getPlayersTemplate(currentPlayer) {
             label: 'Google Music',
             name: 'gmusic',
             click: genSwitchPlayer('gmusic')
-        }];
+        },
+        {
+            label: 'Youtube Music',
+            name: 'ytmusic',
+            click: genSwitchPlayer('ytmusic')
+        }
+    ];
 
     return players.filter((item) => item.name !== currentPlayer);
 }
